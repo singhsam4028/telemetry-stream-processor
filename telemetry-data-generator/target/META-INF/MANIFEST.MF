@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Created-By: Maven JAR Plugin 3.4.1
+Build-Jdk-Spec: 22
+Class-Path: kafka-clients-2.8.2.jar zstd-jni-1.4.9-1.jar lz4-java-1.7.1.
+ jar snappy-java-1.1.8.1.jar slf4j-api-1.7.30.jar
+Main-Class: org.arc.TelemetryDataGenerator
+

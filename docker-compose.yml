@@ -1,0 +1,154 @@
+version: '3.8'
+
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:5.5.3
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+    networks:
+      - flink_network
+
+  kafka:
+    image: confluentinc/cp-enterprise-kafka:5.5.3
+    depends_on:
+      - zookeeper
+
+    ports:
+      - "29092:29092"
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+#      KAFKA_JMX_PORT: 9101
+    networks:
+      - flink_network
+
+
+  kafka_manager:
+    image: hlebalbau/kafka-manager:stable
+    restart: always
+    ports:
+      - "9001:9001"
+    depends_on:
+      - zookeeper
+      - kafka
+    environment:
+      ZK_HOSTS: "zookeeper:2181"
+      APPLICATION_SECRET: "random-secret"
+    command: -Dpidfile.path=/dev/null
+    networks:
+      - flink_network
+
+
+  jobmanager:
+    image: apache/flink:1.14.0
+    ports:
+      - "8081:8081"
+    command: standalone-job --job-classname org.arc.TelemetryStreamProcessor  --jars /opt/flink/usrlib/stream-processor-1.0-SNAPSHOT.jar
+    volumes:
+      - ./stream-processor/target:/opt/flink/usrlib
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+        parallelism.default: 2
+    networks:
+      - flink_network
+    depends_on:
+      - kafka
+
+  taskmanager:
+    image: apache/flink:1.14.0
+    depends_on:
+      - jobmanager
+    command: taskmanager
+#    scale: 1
+    volumes:
+      - ./stream-processor/target:/opt/flink/usrlib
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+        taskmanager.numberOfTaskSlots: 2
+        parallelism.default: 2
+    networks:
+      - flink_network
+
+
+
+
+  notification-service:
+    build: ./notification-service
+    depends_on:
+      - kafka
+    networks:
+      - flink_network
+
+  telemetry-data-generator:
+    build: ./telemetry-data-generator
+    depends_on:
+      - kafka
+    networks:
+      - flink_network
+
+  jobmanager-clickhouse:
+    image: apache/flink:1.16.0
+    ports:
+      - "8082:8081"  # different port to avoid conflict
+    command: standalone-job --job-classname org.arc.ClickHousePersistence --jars /opt/flink/usrlib/clickhouse-persistence-1.0-SNAPSHOT.jar
+    volumes:
+      - ./clickhouse-persistence/target:/opt/flink/usrlib
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager-clickhouse
+        parallelism.default: 2
+    networks:
+      - flink_network
+    depends_on:
+      - kafka
+      - clickhouse
+
+  taskmanager-clickhouse:
+    image: apache/flink:1.16.0
+    depends_on:
+      - jobmanager-clickhouse
+    command: taskmanager
+    volumes:
+      - ./clickhouse-persistence/target:/opt/flink/usrlib
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager-clickhouse
+        taskmanager.numberOfTaskSlots: 2
+        parallelism.default: 2
+    networks:
+      - flink_network
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    volumes:
+      - ~/practice/telemetry-stream-processor/clickhouse/clickhouse_database:/var/lib/clickhouse
+      - ~/practice/telemetry-stream-processor/clickhouse/config.xml:/etc/clickhouse-server/config.d/config.xml
+      - ~/practice/telemetry-stream-processor/clickhouse/users.xml:/etc/clickhouse-server/users.d/users.xml
+    networks:
+      - flink_network
+
+  grafana:
+    build: ./grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - clickhouse
+    networks:
+      - flink_network
+
+networks:
+  flink_network:
+    driver: bridge

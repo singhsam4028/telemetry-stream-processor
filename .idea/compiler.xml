@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="telemetry-data-generator" />
+        <module name="clickhouse-persistence" />
+        <module name="notification-service" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="clickhosue-persistence" target="1.8" />
+      <module name="clickhouse" target="17" />
+      <module name="grafana" target="17" />
+      <module name="kafka" target="17" />
+      <module name="stream-processor (1)" target="1.8" />
+      <module name="stream-processor (2)" target="1.8" />
+      <module name="tele-gen" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

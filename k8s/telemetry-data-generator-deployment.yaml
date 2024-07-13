@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: telemetry-data-generator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: telemetry-data-generator
+  template:
+    metadata:
+      labels:
+        app: telemetry-data-generator
+    spec:
+      containers:
+        - name: telemetry-data-generator
+          image: telemetry-data-generator:latest
+          ports:
+            - containerPort: 8080

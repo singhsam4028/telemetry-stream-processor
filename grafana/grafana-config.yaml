@@ -1,0 +1,7 @@
+[database]
+type = sqlite3
+path = grafana.db
+
+[security]
+admin_user = admin
+admin_password = admin
