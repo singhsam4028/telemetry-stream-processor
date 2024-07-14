@@ -43,7 +43,7 @@ services:
       - flink_network
 
 
-  jobmanager:
+  jobmanager-stream-processor:
     image: apache/flink:1.14.0
     ports:
       - "8081:8081"
@@ -53,14 +53,14 @@ services:
     environment:
       - |
         FLINK_PROPERTIES=
-        jobmanager.rpc.address: jobmanager
+        jobmanager.rpc.address: jobmanager-stream-processor
         parallelism.default: 2
     networks:
       - flink_network
     depends_on:
       - kafka
 
-  taskmanager:
+  taskmanager-stream-processor:
     image: apache/flink:1.14.0
     depends_on:
       - jobmanager
@@ -71,7 +71,7 @@ services:
     environment:
       - |
         FLINK_PROPERTIES=
-        jobmanager.rpc.address: jobmanager
+        jobmanager.rpc.address: jobmanager-stream-processor
         taskmanager.numberOfTaskSlots: 2
         parallelism.default: 2
     networks:
@@ -94,7 +94,7 @@ services:
     networks:
       - flink_network
 
-  jobmanager-clickhouse:
+  jobmanager-clickhouse-persistence:
     image: apache/flink:1.16.0
     ports:
       - "8082:8081"  # different port to avoid conflict
@@ -104,7 +104,7 @@ services:
     environment:
       - |
         FLINK_PROPERTIES=
-        jobmanager.rpc.address: jobmanager-clickhouse
+        jobmanager.rpc.address: jobmanager-clickhouse-persistence
         parallelism.default: 2
     networks:
       - flink_network
@@ -112,7 +112,7 @@ services:
       - kafka
       - clickhouse
 
-  taskmanager-clickhouse:
+  taskmanager-clickhouse-persistence:
     image: apache/flink:1.16.0
     depends_on:
       - jobmanager-clickhouse
@@ -122,7 +122,7 @@ services:
     environment:
       - |
         FLINK_PROPERTIES=
-        jobmanager.rpc.address: jobmanager-clickhouse
+        jobmanager.rpc.address: jobmanager-clickhouse-persistence
         taskmanager.numberOfTaskSlots: 2
         parallelism.default: 2
     networks:

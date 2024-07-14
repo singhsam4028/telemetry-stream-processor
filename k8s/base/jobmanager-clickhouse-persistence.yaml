@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jobmanager-clickhouse-persistence
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jobmanager-clickhouse-persistence
+  template:
+    metadata:
+      labels:
+        app: jobmanager-clickhouse-persistence
+    spec:
+      containers:
+        - name: jobmanager-clickhouse
+          image: apache/flink:1.16.0
+          ports:
+            - containerPort: 8082
+          command: ["standalone-job", "--job-classname", "org.arc.ClickHousePersistence", "--jars", "/opt/flink/usrlib/clickhouse-persistence-1.0-SNAPSHOT.jar"]
+          volumeMounts:
+            - name: flink-usrlib
+              mountPath: /opt/flink/usrlib
+      volumes:
+        - name: flink-usrlib
+          hostPath:
+            path: /Users/samarjeetsingh/practice/telemetry-stream-processor/clickhouse-persistence/target
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jobmanager-clickhouse-persistence
+spec:
+  ports:
+    - port: 8082
+      targetPort: 8082
+  selector:
+    app: jobmanager-clickhouse-persistence

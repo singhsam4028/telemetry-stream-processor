@@ -421,7 +421,7 @@
          The cache is dropped (the files are closed) automatically on removal of old parts in MergeTree,
          also it can be dropped manually by the SYSTEM DROP MMAP CACHE query.
       -->
-     <mmap_cache_size>1024</mmap_cache_size>
+    <mmap_cache_size>1024</mmap_cache_size>
 
     <!-- Cache size in bytes for compiled expressions.-->
     <!-- <compiled_expression_cache_size>134217728</compiled_expression_cache_size> -->
@@ -430,7 +430,7 @@
     <!-- <compiled_expression_cache_elements_size>10000</compiled_expression_cache_elements_size> -->
 
     <!-- Configuration for the query cache -->
-<!--    &lt;!&ndash;-->
+    <!--    &lt;!&ndash;-->
 
     <query_cache>
         <max_size_in_bytes>1073741824</max_size_in_bytes>
@@ -438,7 +438,7 @@
         <max_entry_size_in_bytes>1048576</max_entry_size_in_bytes>
         <max_entry_size_in_rows>30000000</max_entry_size_in_rows>
     </query_cache>
-<!--    &ndash;&gt;-->
+    <!--    &ndash;&gt;-->
 
     <!-- Cache path for custom (created from SQL) cached disks -->
     <custom_cached_disks_base_directory>/var/lib/clickhouse/caches/</custom_cached_disks_base_directory>

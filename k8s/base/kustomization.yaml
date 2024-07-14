@@ -1,0 +1,13 @@
+resources:
+  - clickhouse.yaml
+  - grafana.yaml
+  - clickhouse-config.yaml
+  - clickhouse-users.yaml
+  - zookeeper.yaml
+  - kafka.yaml
+  - flink-jobmanager-stream-processor.yaml
+  - flink-taskmanager-stream-processor.yaml
+  - flink-jobmanager-clickhouse-persistence.yaml
+  - flink-taskmanager-clickhouse-persistence.yaml
+  - telemetry-data-generator.yaml
+  - notification-service.yaml

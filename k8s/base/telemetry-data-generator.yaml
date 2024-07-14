@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: telemetry-data-generator
-          image: telemetry-data-generator:latest
-          ports:
-            - containerPort: 8080
+          image: samar4028/telemetry-data-generator:latest
+          env:
+          # Add any necessary environment variables here

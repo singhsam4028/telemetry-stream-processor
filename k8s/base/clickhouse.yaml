@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clickhouse
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clickhouse
+  template:
+    metadata:
+      labels:
+        app: clickhouse
+    spec:
+      initContainers:
+        - name: init-clickhouse
+          image: clickhouse/clickhouse-client:latest
+          command:
+            - sh
+            - -c
+            - >
+              until clickhouse-client --host=clickhouse --port=9000 --query "SELECT 1" > /dev/null 2>&1; do
+                echo "Waiting for ClickHouse to be ready...";
+                sleep 5;
+              done;
+              clickhouse-client --host=clickhouse --port=9000 --query "CREATE USER IF NOT EXISTS samar IDENTIFIED WITH plaintext_password BY 'samar_4028';";
+              clickhouse-client --host=clickhouse --port=9000 --query "GRANT ALL ON *.* TO samar;";
+              clickhouse-client --host=clickhouse --port=9000 --query "CREATE DATABASE IF NOT EXISTS telemetry;";
+              clickhouse-client --host=clickhouse --port=9000 --query "CREATE TABLE IF NOT EXISTS telemetry.anomalies (co Float32, humidity Int32, light Bool, lpg Float32, motion Bool, smoke Float32, temp Float32) ENGINE = MergeTree() ORDER BY (co, humidity);"
+      containers:
+        - name: clickhouse
+          image: clickhouse/clickhouse-server:latest
+          ports:
+            - name: http
+              containerPort: 8123
+            - name: tcp
+              containerPort: 9000
+          volumeMounts:
+            - name: clickhouse-data
+              mountPath: /var/lib/clickhouse
+            - name: clickhouse-config
+              mountPath: /etc/clickhouse-server/config.d/config.xml
+              subPath: config.xml
+            - name: clickhouse-users
+              mountPath: /etc/clickhouse-server/users.d/users.xml
+              subPath: users.xml
+      volumes:
+        - name: clickhouse-data
+          hostPath:
+            path: /Users/samarjeetsingh/practice/telemetry-stream-processor/clickhouse/clickhouse_database
+        - name: clickhouse-config
+          configMap:
+            name: clickhouse-config
+        - name: clickhouse-users
+          configMap:
+            name: clickhouse-users
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: clickhouse
+spec:
+  ports:
+    - name: http
+      port: 8123
+      targetPort: 8123
+    - name: tcp
+      port: 9000
+      targetPort: 9000
+  selector:
+    app: clickhouse
