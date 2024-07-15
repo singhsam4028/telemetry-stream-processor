@@ -31,7 +31,7 @@ services:
     image: hlebalbau/kafka-manager:stable
     restart: always
     ports:
-      - "9001:9001"
+      - "9007:9007"
     depends_on:
       - zookeeper
       - kafka
@@ -39,6 +39,19 @@ services:
       ZK_HOSTS: "zookeeper:2181"
       APPLICATION_SECRET: "random-secret"
     command: -Dpidfile.path=/dev/null
+    networks:
+      - flink_network
+
+  kafdrop:
+    image: obsidiandynamics/kafdrop
+    restart: always
+    ports:
+      - "9008:9008"
+    depends_on:
+      - kafka
+      - zookeeper
+    environment:
+      KAFKA_BROKER_CONNECT: kafka:9092
     networks:
       - flink_network
 
@@ -137,6 +150,8 @@ services:
       - ~/practice/telemetry-stream-processor/clickhouse/clickhouse_database:/var/lib/clickhouse
       - ~/practice/telemetry-stream-processor/clickhouse/config.xml:/etc/clickhouse-server/config.d/config.xml
       - ~/practice/telemetry-stream-processor/clickhouse/users.xml:/etc/clickhouse-server/users.d/users.xml
+      - ~/practice/telemetry-stream-processor/clickhouse/clickhouse-server.log:/var/log/clickhouse-server/clickhouse-server.log
+      - ~/practice/telemetry-stream-processor/clickhouse/clickhouse-server.err.log:/var/log/clickhouse-server/clickhouse-server.err.log
     networks:
       - flink_network
 

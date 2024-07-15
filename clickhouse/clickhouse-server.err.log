@@ -1,0 +1,251 @@
+2024.07.15 17:05:16.273675 [ 1 ] {} <Warning> Context: Linux transparent hugepages are set to "always". Check /sys/kernel/mm/transparent_hugepage/enabled
+2024.07.15 17:05:16.274186 [ 1 ] {} <Warning> Context: Delay accounting is not enabled, OSIOWaitMicroseconds will not be gathered. You can enable it using `echo 1 > /proc/sys/kernel/task_delayacct` or by using sysctl.
+2024.07.15 17:05:16.274688 [ 1 ] {} <Warning> Application: Integrity check of the executable skipped because the reference checksum could not be read.
+2024.07.15 17:05:16.428853 [ 1 ] {} <Warning> Application: Listen [::]:9009 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 24.5.3.5 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2024.07.15 17:05:16.440769 [ 1 ] {} <Error> Application: Caught exception while setting up access control.: Code: 36. DB::Exception: Any other access control settings can't be specified with `grants`: while parsing user 'default' in users configuration file: while loading configuration file '/etc/clickhouse-server/users.xml'. (BAD_ARGUMENTS), Stack trace (when copying this message, always include the lines below):
+
+0. DB::Exception::Exception(DB::Exception::MessageMasked&&, int, bool) @ 0x000000000bc29748
+1. DB::Exception::Exception(PreformattedMessage&&, int) @ 0x0000000007a7dffc
+2. DB::Exception::Exception<>(int, FormatStringHelperImpl<>) @ 0x0000000007a8a8d4
+3. DB::(anonymous namespace)::parseUser(Poco::Util::AbstractConfiguration const&, String const&, std::unordered_set<StrongTypedef<wide::integer<128ul, unsigned int>, DB::UUIDTag>, std::hash<StrongTypedef<wide::integer<128ul, unsigned int>, DB::UUIDTag>>, std::equal_to<StrongTypedef<wide::integer<128ul, unsigned int>, DB::UUIDTag>>, std::allocator<StrongTypedef<wide::integer<128ul, unsigned int>, DB::UUIDTag>>> const&, std::unordered_set<StrongTypedef<wide::integer<128ul, unsigned int>, DB::UUIDTag>, std::hash<StrongTypedef<wide::integer<128ul, unsigned int>, DB::UUIDTag>>, std::equal_to<StrongTypedef<wide::integer<128ul, unsigned int>, DB::UUIDTag>>, std::allocator<StrongTypedef<wide::integer<128ul, unsigned int>, DB::UUIDTag>>> const&, bool, bool) @ 0x000000000e9181a0
+4. DB::UsersConfigAccessStorage::parseFromConfig(Poco::Util::AbstractConfiguration const&) @ 0x000000000e903f14
+5. void std::__function::__policy_invoker<void (Poco::AutoPtr<Poco::Util::AbstractConfiguration>, bool)>::__call_impl<std::__function::__default_alloc_func<DB::UsersConfigAccessStorage::load(String const&, String const&, String const&, std::function<std::shared_ptr<zkutil::ZooKeeper> ()> const&)::$_0, void (Poco::AutoPtr<Poco::Util::AbstractConfiguration>, bool)>>(std::__function::__policy_storage const*, Poco::AutoPtr<Poco::Util::AbstractConfiguration>&&, bool) @ 0x000000000e919a7c
+6. DB::ConfigReloader::reloadIfNewer(bool, bool, bool, bool) @ 0x0000000010fcbd74
+7. DB::ConfigReloader::ConfigReloader(std::basic_string_view<char, std::char_traits<char>>, std::vector<String, std::allocator<String>> const&, String const&, zkutil::ZooKeeperNodeCache&&, std::shared_ptr<Poco::Event> const&, std::function<void (Poco::AutoPtr<Poco::Util::AbstractConfiguration>, bool)>&&, bool) @ 0x0000000010fcb118
+8. DB::UsersConfigAccessStorage::load(String const&, String const&, String const&, std::function<std::shared_ptr<zkutil::ZooKeeper> ()> const&) @ 0x000000000e913270
+9. DB::AccessControl::addUsersConfigStorage(String const&, String const&, String const&, String const&, std::function<std::shared_ptr<zkutil::ZooKeeper> ()> const&, bool) @ 0x000000000e82b9d4
+10. DB::AccessControl::addStoragesFromUserDirectoriesConfig(Poco::Util::AbstractConfiguration const&, String const&, String const&, String const&, String const&, std::function<std::shared_ptr<zkutil::ZooKeeper> ()> const&) @ 0x000000000e82e668
+11. DB::AccessControl::setUpFromMainConfig(Poco::Util::AbstractConfiguration const&, String const&, std::function<std::shared_ptr<zkutil::ZooKeeper> ()> const&) @ 0x000000000e82a404
+12. DB::Server::main(std::vector<String, std::allocator<String>> const&) @ 0x000000000bd80e98
+13. Poco::Util::Application::run() @ 0x0000000012d269dc
+14. DB::Server::run() @ 0x000000000bd75360
+15. Poco::Util::ServerApplication::run(int, char**) @ 0x0000000012d2fbd8
+16. mainEntryClickHouseServer(int, char**) @ 0x000000000bd72978
+17. main @ 0x0000000007a7a8fc
+18. ? @ 0x0000000000020e10
+ (version 24.5.3.5 (official build))
+2024.07.15 17:05:16.712818 [ 1 ] {} <Error> Application: Code: 36. DB::Exception: Any other access control settings can't be specified with `grants`: while parsing user 'default' in users configuration file: while loading configuration file '/etc/clickhouse-server/users.xml'. (BAD_ARGUMENTS), Stack trace (when copying this message, always include the lines below):
+
+0. DB::Exception::Exception(DB::Exception::MessageMasked&&, int, bool) @ 0x000000000bc29748
+1. DB::Exception::Exception(PreformattedMessage&&, int) @ 0x0000000007a7dffc
+2. DB::Exception::Exception<>(int, FormatStringHelperImpl<>) @ 0x0000000007a8a8d4
+3. DB::(anonymous namespace)::parseUser(Poco::Util::AbstractConfiguration const&, String const&, std::unordered_set<StrongTypedef<wide::integer<128ul, unsigned int>, DB::UUIDTag>, std::hash<StrongTypedef<wide::integer<128ul, unsigned int>, DB::UUIDTag>>, std::equal_to<StrongTypedef<wide::integer<128ul, unsigned int>, DB::UUIDTag>>, std::allocator<StrongTypedef<wide::integer<128ul, unsigned int>, DB::UUIDTag>>> const&, std::unordered_set<StrongTypedef<wide::integer<128ul, unsigned int>, DB::UUIDTag>, std::hash<StrongTypedef<wide::integer<128ul, unsigned int>, DB::UUIDTag>>, std::equal_to<StrongTypedef<wide::integer<128ul, unsigned int>, DB::UUIDTag>>, std::allocator<StrongTypedef<wide::integer<128ul, unsigned int>, DB::UUIDTag>>> const&, bool, bool) @ 0x000000000e9181a0
+4. DB::UsersConfigAccessStorage::parseFromConfig(Poco::Util::AbstractConfiguration const&) @ 0x000000000e903f14
+5. void std::__function::__policy_invoker<void (Poco::AutoPtr<Poco::Util::AbstractConfiguration>, bool)>::__call_impl<std::__function::__default_alloc_func<DB::UsersConfigAccessStorage::load(String const&, String const&, String const&, std::function<std::shared_ptr<zkutil::ZooKeeper> ()> const&)::$_0, void (Poco::AutoPtr<Poco::Util::AbstractConfiguration>, bool)>>(std::__function::__policy_storage const*, Poco::AutoPtr<Poco::Util::AbstractConfiguration>&&, bool) @ 0x000000000e919a7c
+6. DB::ConfigReloader::reloadIfNewer(bool, bool, bool, bool) @ 0x0000000010fcbd74
+7. DB::ConfigReloader::ConfigReloader(std::basic_string_view<char, std::char_traits<char>>, std::vector<String, std::allocator<String>> const&, String const&, zkutil::ZooKeeperNodeCache&&, std::shared_ptr<Poco::Event> const&, std::function<void (Poco::AutoPtr<Poco::Util::AbstractConfiguration>, bool)>&&, bool) @ 0x0000000010fcb118
+8. DB::UsersConfigAccessStorage::load(String const&, String const&, String const&, std::function<std::shared_ptr<zkutil::ZooKeeper> ()> const&) @ 0x000000000e913270
+9. DB::AccessControl::addUsersConfigStorage(String const&, String const&, String const&, String const&, std::function<std::shared_ptr<zkutil::ZooKeeper> ()> const&, bool) @ 0x000000000e82b9d4
+10. DB::AccessControl::addStoragesFromUserDirectoriesConfig(Poco::Util::AbstractConfiguration const&, String const&, String const&, String const&, String const&, std::function<std::shared_ptr<zkutil::ZooKeeper> ()> const&) @ 0x000000000e82e668
+11. DB::AccessControl::setUpFromMainConfig(Poco::Util::AbstractConfiguration const&, String const&, std::function<std::shared_ptr<zkutil::ZooKeeper> ()> const&) @ 0x000000000e82a404
+12. DB::Server::main(std::vector<String, std::allocator<String>> const&) @ 0x000000000bd80e98
+13. Poco::Util::Application::run() @ 0x0000000012d269dc
+14. DB::Server::run() @ 0x000000000bd75360
+15. Poco::Util::ServerApplication::run(int, char**) @ 0x0000000012d2fbd8
+16. mainEntryClickHouseServer(int, char**) @ 0x000000000bd72978
+17. main @ 0x0000000007a7a8fc
+18. ? @ 0x0000000000020e10
+ (version 24.5.3.5 (official build))
+2024.07.15 17:12:32.461048 [ 1 ] {} <Warning> Context: Linux transparent hugepages are set to "always". Check /sys/kernel/mm/transparent_hugepage/enabled
+2024.07.15 17:12:32.462157 [ 1 ] {} <Warning> Context: Delay accounting is not enabled, OSIOWaitMicroseconds will not be gathered. You can enable it using `echo 1 > /proc/sys/kernel/task_delayacct` or by using sysctl.
+2024.07.15 17:12:32.462543 [ 1 ] {} <Warning> Application: Integrity check of the executable skipped because the reference checksum could not be read.
+2024.07.15 17:12:32.639955 [ 1 ] {} <Warning> Application: Listen [::]:9009 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 24.5.3.5 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2024.07.15 17:12:32.652190 [ 1 ] {} <Warning> Access(local_directory): File /var/lib/clickhouse/access/users.list doesn't exist
+2024.07.15 17:12:32.652403 [ 1 ] {} <Warning> Access(local_directory): Recovering lists in directory /var/lib/clickhouse/access/
+2024.07.15 17:12:32.735544 [ 1 ] {} <Warning> Application: Listen [::]:8123 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 24.5.3.5 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2024.07.15 17:12:32.736079 [ 1 ] {} <Warning> Application: Listen [::]:9000 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 24.5.3.5 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2024.07.15 17:12:32.736575 [ 1 ] {} <Warning> Application: Listen [::]:9004 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 24.5.3.5 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2024.07.15 17:12:32.736807 [ 1 ] {} <Warning> Application: Listen [::]:9005 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 24.5.3.5 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2024.07.15 17:21:57.606583 [ 48 ] {6c3a4fd4-de5f-4c7a-b393-d1680214c932} <Error> executeQuery: Code: 497. DB::Exception: default: Not enough privileges. To execute this query, it's necessary to have the grant ALL ON *.* WITH GRANT OPTION. (ACCESS_DENIED) (version 24.5.3.5 (official build)) (from 172.20.0.5:42950) (in query: GRANT ALL ON *.* TO samar;), Stack trace (when copying this message, always include the lines below):
+
+0. DB::Exception::Exception(DB::Exception::MessageMasked&&, int, bool) @ 0x000000000bc29748
+1. DB::Exception::Exception(PreformattedMessage&&, int) @ 0x0000000007a7dffc
+2. DB::Exception::Exception<String, String>(int, FormatStringHelperImpl<std::type_identity<String>::type, std::type_identity<String>::type>, String&&, String&&) @ 0x0000000007a7fd7c
+3. bool DB::ContextAccess::checkAccessImplHelper<true, true>(DB::AccessFlags) const @ 0x000000000e8630e4
+4. bool DB::ContextAccess::checkAccessImplHelper<true, true>(DB::AccessRightsElement const&) const @ 0x000000000e85f488
+5. DB::InterpreterGrantQuery::execute() @ 0x000000000fca8c44
+6. DB::executeQueryImpl(char const*, char const*, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum, DB::ReadBuffer*) @ 0x000000000fbcc718
+7. DB::executeQuery(String const&, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum) @ 0x000000000fbc8c68
+8. DB::TCPHandler::runImpl() @ 0x00000000109db464
+9. DB::TCPHandler::run() @ 0x00000000109f1de8
+10. Poco::Net::TCPServerConnection::start() @ 0x0000000012d1ac38
+11. Poco::Net::TCPServerDispatcher::run() @ 0x0000000012d1b114
+12. Poco::PooledThread::run() @ 0x0000000012e12e98
+13. Poco::ThreadImpl::runnableEntry(void*) @ 0x0000000012e11290
+14. start_thread @ 0x0000000000007624
+15. ? @ 0x00000000000d162c
+
+2024.07.15 17:21:57.607360 [ 48 ] {6c3a4fd4-de5f-4c7a-b393-d1680214c932} <Error> TCPHandler: Code: 497. DB::Exception: default: Not enough privileges. To execute this query, it's necessary to have the grant ALL ON *.* WITH GRANT OPTION. (ACCESS_DENIED), Stack trace (when copying this message, always include the lines below):
+
+0. DB::Exception::Exception(DB::Exception::MessageMasked&&, int, bool) @ 0x000000000bc29748
+1. DB::Exception::Exception(PreformattedMessage&&, int) @ 0x0000000007a7dffc
+2. DB::Exception::Exception<String, String>(int, FormatStringHelperImpl<std::type_identity<String>::type, std::type_identity<String>::type>, String&&, String&&) @ 0x0000000007a7fd7c
+3. bool DB::ContextAccess::checkAccessImplHelper<true, true>(DB::AccessFlags) const @ 0x000000000e8630e4
+4. bool DB::ContextAccess::checkAccessImplHelper<true, true>(DB::AccessRightsElement const&) const @ 0x000000000e85f488
+5. DB::InterpreterGrantQuery::execute() @ 0x000000000fca8c44
+6. DB::executeQueryImpl(char const*, char const*, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum, DB::ReadBuffer*) @ 0x000000000fbcc718
+7. DB::executeQuery(String const&, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum) @ 0x000000000fbc8c68
+8. DB::TCPHandler::runImpl() @ 0x00000000109db464
+9. DB::TCPHandler::run() @ 0x00000000109f1de8
+10. Poco::Net::TCPServerConnection::start() @ 0x0000000012d1ac38
+11. Poco::Net::TCPServerDispatcher::run() @ 0x0000000012d1b114
+12. Poco::PooledThread::run() @ 0x0000000012e12e98
+13. Poco::ThreadImpl::runnableEntry(void*) @ 0x0000000012e11290
+14. start_thread @ 0x0000000000007624
+15. ? @ 0x00000000000d162c
+
+2024.07.15 17:26:23.908973 [ 48 ] {ea8bf468-5e61-4c42-966d-b691e808da15} <Error> executeQuery: Code: 497. DB::Exception: samar: Not enough privileges. To execute this query, it's necessary to have the grant SHOW, SELECT, INSERT, ALTER, CREATE DATABASE, CREATE TABLE, CREATE VIEW, CREATE DICTIONARY, DROP DATABASE, DROP TABLE, DROP VIEW, DROP DICTIONARY, UNDROP TABLE, TRUNCATE, OPTIMIZE, BACKUP, CREATE ROW POLICY, ALTER ROW POLICY, DROP ROW POLICY, SHOW ROW POLICIES, SYSTEM MERGES, SYSTEM TTL MERGES, SYSTEM FETCHES, SYSTEM MOVES, SYSTEM PULLING REPLICATION LOG, SYSTEM CLEANUP, SYSTEM VIEWS, SYSTEM SENDS, SYSTEM REPLICATION QUEUES, SYSTEM VIRTUAL PARTS UPDATE, SYSTEM DROP REPLICA, SYSTEM SYNC REPLICA, SYSTEM RESTART REPLICA, SYSTEM RESTORE REPLICA, SYSTEM WAIT LOADING PARTS, SYSTEM SYNC DATABASE REPLICA, SYSTEM FLUSH DISTRIBUTED, SYSTEM UNLOAD PRIMARY KEY, dictGet ON telemetry.* WITH GRANT OPTION. (ACCESS_DENIED) (version 24.5.3.5 (official build)) (from 172.20.0.5:45942) (in query: GRANT ALL ON telemetry.* TO samar;), Stack trace (when copying this message, always include the lines below):
+
+0. DB::Exception::Exception(DB::Exception::MessageMasked&&, int, bool) @ 0x000000000bc29748
+1. DB::Exception::Exception(PreformattedMessage&&, int) @ 0x0000000007a7dffc
+2. DB::Exception::Exception<String, String>(int, FormatStringHelperImpl<std::type_identity<String>::type, std::type_identity<String>::type>, String&&, String&&) @ 0x0000000007a7fd7c
+3. bool DB::ContextAccess::checkAccessImplHelper<true, true, std::basic_string_view<char, std::char_traits<char>>>(DB::AccessFlags, std::basic_string_view<char, std::char_traits<char>> const&) const @ 0x000000000e863e38
+4. bool DB::ContextAccess::checkAccessImplHelper<true, true>(DB::AccessRightsElement const&) const @ 0x000000000e85f4fc
+5. DB::InterpreterGrantQuery::execute() @ 0x000000000fca8c44
+6. DB::executeQueryImpl(char const*, char const*, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum, DB::ReadBuffer*) @ 0x000000000fbcc718
+7. DB::executeQuery(String const&, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum) @ 0x000000000fbc8c68
+8. DB::TCPHandler::runImpl() @ 0x00000000109db464
+9. DB::TCPHandler::run() @ 0x00000000109f1de8
+10. Poco::Net::TCPServerConnection::start() @ 0x0000000012d1ac38
+11. Poco::Net::TCPServerDispatcher::run() @ 0x0000000012d1b114
+12. Poco::PooledThread::run() @ 0x0000000012e12e98
+13. Poco::ThreadImpl::runnableEntry(void*) @ 0x0000000012e11290
+14. start_thread @ 0x0000000000007624
+15. ? @ 0x00000000000d162c
+
+2024.07.15 17:26:23.909709 [ 48 ] {ea8bf468-5e61-4c42-966d-b691e808da15} <Error> TCPHandler: Code: 497. DB::Exception: samar: Not enough privileges. To execute this query, it's necessary to have the grant SHOW, SELECT, INSERT, ALTER, CREATE DATABASE, CREATE TABLE, CREATE VIEW, CREATE DICTIONARY, DROP DATABASE, DROP TABLE, DROP VIEW, DROP DICTIONARY, UNDROP TABLE, TRUNCATE, OPTIMIZE, BACKUP, CREATE ROW POLICY, ALTER ROW POLICY, DROP ROW POLICY, SHOW ROW POLICIES, SYSTEM MERGES, SYSTEM TTL MERGES, SYSTEM FETCHES, SYSTEM MOVES, SYSTEM PULLING REPLICATION LOG, SYSTEM CLEANUP, SYSTEM VIEWS, SYSTEM SENDS, SYSTEM REPLICATION QUEUES, SYSTEM VIRTUAL PARTS UPDATE, SYSTEM DROP REPLICA, SYSTEM SYNC REPLICA, SYSTEM RESTART REPLICA, SYSTEM RESTORE REPLICA, SYSTEM WAIT LOADING PARTS, SYSTEM SYNC DATABASE REPLICA, SYSTEM FLUSH DISTRIBUTED, SYSTEM UNLOAD PRIMARY KEY, dictGet ON telemetry.* WITH GRANT OPTION. (ACCESS_DENIED), Stack trace (when copying this message, always include the lines below):
+
+0. DB::Exception::Exception(DB::Exception::MessageMasked&&, int, bool) @ 0x000000000bc29748
+1. DB::Exception::Exception(PreformattedMessage&&, int) @ 0x0000000007a7dffc
+2. DB::Exception::Exception<String, String>(int, FormatStringHelperImpl<std::type_identity<String>::type, std::type_identity<String>::type>, String&&, String&&) @ 0x0000000007a7fd7c
+3. bool DB::ContextAccess::checkAccessImplHelper<true, true, std::basic_string_view<char, std::char_traits<char>>>(DB::AccessFlags, std::basic_string_view<char, std::char_traits<char>> const&) const @ 0x000000000e863e38
+4. bool DB::ContextAccess::checkAccessImplHelper<true, true>(DB::AccessRightsElement const&) const @ 0x000000000e85f4fc
+5. DB::InterpreterGrantQuery::execute() @ 0x000000000fca8c44
+6. DB::executeQueryImpl(char const*, char const*, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum, DB::ReadBuffer*) @ 0x000000000fbcc718
+7. DB::executeQuery(String const&, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum) @ 0x000000000fbc8c68
+8. DB::TCPHandler::runImpl() @ 0x00000000109db464
+9. DB::TCPHandler::run() @ 0x00000000109f1de8
+10. Poco::Net::TCPServerConnection::start() @ 0x0000000012d1ac38
+11. Poco::Net::TCPServerDispatcher::run() @ 0x0000000012d1b114
+12. Poco::PooledThread::run() @ 0x0000000012e12e98
+13. Poco::ThreadImpl::runnableEntry(void*) @ 0x0000000012e11290
+14. start_thread @ 0x0000000000007624
+15. ? @ 0x00000000000d162c
+
+2024.07.15 17:31:06.418570 [ 48 ] {0ca46460-83d9-464e-bb53-ef3327f1b064} <Error> executeQuery: Code: 497. DB::Exception: default: Not enough privileges. To execute this query, it's necessary to have the grant ALL ON *.* WITH GRANT OPTION. (ACCESS_DENIED) (version 24.5.3.5 (official build)) (from 172.20.0.5:46264) (in query: GRANT ALL ON *.* TO default WITH GRANT OPTION;), Stack trace (when copying this message, always include the lines below):
+
+0. DB::Exception::Exception(DB::Exception::MessageMasked&&, int, bool) @ 0x000000000bc29748
+1. DB::Exception::Exception(PreformattedMessage&&, int) @ 0x0000000007a7dffc
+2. DB::Exception::Exception<String, String>(int, FormatStringHelperImpl<std::type_identity<String>::type, std::type_identity<String>::type>, String&&, String&&) @ 0x0000000007a7fd7c
+3. bool DB::ContextAccess::checkAccessImplHelper<true, true>(DB::AccessFlags) const @ 0x000000000e8630e4
+4. bool DB::ContextAccess::checkAccessImplHelper<true, true>(DB::AccessRightsElement const&) const @ 0x000000000e85f488
+5. DB::InterpreterGrantQuery::execute() @ 0x000000000fca8c44
+6. DB::executeQueryImpl(char const*, char const*, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum, DB::ReadBuffer*) @ 0x000000000fbcc718
+7. DB::executeQuery(String const&, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum) @ 0x000000000fbc8c68
+8. DB::TCPHandler::runImpl() @ 0x00000000109db464
+9. DB::TCPHandler::run() @ 0x00000000109f1de8
+10. Poco::Net::TCPServerConnection::start() @ 0x0000000012d1ac38
+11. Poco::Net::TCPServerDispatcher::run() @ 0x0000000012d1b114
+12. Poco::PooledThread::run() @ 0x0000000012e12e98
+13. Poco::ThreadImpl::runnableEntry(void*) @ 0x0000000012e11290
+14. start_thread @ 0x0000000000007624
+15. ? @ 0x00000000000d162c
+
+2024.07.15 17:31:06.419891 [ 48 ] {0ca46460-83d9-464e-bb53-ef3327f1b064} <Error> TCPHandler: Code: 497. DB::Exception: default: Not enough privileges. To execute this query, it's necessary to have the grant ALL ON *.* WITH GRANT OPTION. (ACCESS_DENIED), Stack trace (when copying this message, always include the lines below):
+
+0. DB::Exception::Exception(DB::Exception::MessageMasked&&, int, bool) @ 0x000000000bc29748
+1. DB::Exception::Exception(PreformattedMessage&&, int) @ 0x0000000007a7dffc
+2. DB::Exception::Exception<String, String>(int, FormatStringHelperImpl<std::type_identity<String>::type, std::type_identity<String>::type>, String&&, String&&) @ 0x0000000007a7fd7c
+3. bool DB::ContextAccess::checkAccessImplHelper<true, true>(DB::AccessFlags) const @ 0x000000000e8630e4
+4. bool DB::ContextAccess::checkAccessImplHelper<true, true>(DB::AccessRightsElement const&) const @ 0x000000000e85f488
+5. DB::InterpreterGrantQuery::execute() @ 0x000000000fca8c44
+6. DB::executeQueryImpl(char const*, char const*, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum, DB::ReadBuffer*) @ 0x000000000fbcc718
+7. DB::executeQuery(String const&, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum) @ 0x000000000fbc8c68
+8. DB::TCPHandler::runImpl() @ 0x00000000109db464
+9. DB::TCPHandler::run() @ 0x00000000109f1de8
+10. Poco::Net::TCPServerConnection::start() @ 0x0000000012d1ac38
+11. Poco::Net::TCPServerDispatcher::run() @ 0x0000000012d1b114
+12. Poco::PooledThread::run() @ 0x0000000012e12e98
+13. Poco::ThreadImpl::runnableEntry(void*) @ 0x0000000012e11290
+14. start_thread @ 0x0000000000007624
+15. ? @ 0x00000000000d162c
+
+2024.07.15 17:33:14.733347 [ 48 ] {22e6c3ef-093f-4d97-9b5f-0cde6af0d13e} <Error> executeQuery: Code: 497. DB::Exception: default: Not enough privileges. To execute this query, it's necessary to have the grant ALL ON *.* WITH GRANT OPTION. (ACCESS_DENIED) (version 24.5.3.5 (official build)) (from 172.20.0.5:57880) (in query: GRANT ALL ON *.* TO samar WITH GRANT OPTION;), Stack trace (when copying this message, always include the lines below):
+
+0. DB::Exception::Exception(DB::Exception::MessageMasked&&, int, bool) @ 0x000000000bc29748
+1. DB::Exception::Exception(PreformattedMessage&&, int) @ 0x0000000007a7dffc
+2. DB::Exception::Exception<String, String>(int, FormatStringHelperImpl<std::type_identity<String>::type, std::type_identity<String>::type>, String&&, String&&) @ 0x0000000007a7fd7c
+3. bool DB::ContextAccess::checkAccessImplHelper<true, true>(DB::AccessFlags) const @ 0x000000000e8630e4
+4. bool DB::ContextAccess::checkAccessImplHelper<true, true>(DB::AccessRightsElement const&) const @ 0x000000000e85f488
+5. DB::InterpreterGrantQuery::execute() @ 0x000000000fca8c44
+6. DB::executeQueryImpl(char const*, char const*, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum, DB::ReadBuffer*) @ 0x000000000fbcc718
+7. DB::executeQuery(String const&, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum) @ 0x000000000fbc8c68
+8. DB::TCPHandler::runImpl() @ 0x00000000109db464
+9. DB::TCPHandler::run() @ 0x00000000109f1de8
+10. Poco::Net::TCPServerConnection::start() @ 0x0000000012d1ac38
+11. Poco::Net::TCPServerDispatcher::run() @ 0x0000000012d1b114
+12. Poco::PooledThread::run() @ 0x0000000012e12e98
+13. Poco::ThreadImpl::runnableEntry(void*) @ 0x0000000012e11290
+14. start_thread @ 0x0000000000007624
+15. ? @ 0x00000000000d162c
+
+2024.07.15 17:33:14.733940 [ 48 ] {22e6c3ef-093f-4d97-9b5f-0cde6af0d13e} <Error> TCPHandler: Code: 497. DB::Exception: default: Not enough privileges. To execute this query, it's necessary to have the grant ALL ON *.* WITH GRANT OPTION. (ACCESS_DENIED), Stack trace (when copying this message, always include the lines below):
+
+0. DB::Exception::Exception(DB::Exception::MessageMasked&&, int, bool) @ 0x000000000bc29748
+1. DB::Exception::Exception(PreformattedMessage&&, int) @ 0x0000000007a7dffc
+2. DB::Exception::Exception<String, String>(int, FormatStringHelperImpl<std::type_identity<String>::type, std::type_identity<String>::type>, String&&, String&&) @ 0x0000000007a7fd7c
+3. bool DB::ContextAccess::checkAccessImplHelper<true, true>(DB::AccessFlags) const @ 0x000000000e8630e4
+4. bool DB::ContextAccess::checkAccessImplHelper<true, true>(DB::AccessRightsElement const&) const @ 0x000000000e85f488
+5. DB::InterpreterGrantQuery::execute() @ 0x000000000fca8c44
+6. DB::executeQueryImpl(char const*, char const*, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum, DB::ReadBuffer*) @ 0x000000000fbcc718
+7. DB::executeQuery(String const&, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum) @ 0x000000000fbc8c68
+8. DB::TCPHandler::runImpl() @ 0x00000000109db464
+9. DB::TCPHandler::run() @ 0x00000000109f1de8
+10. Poco::Net::TCPServerConnection::start() @ 0x0000000012d1ac38
+11. Poco::Net::TCPServerDispatcher::run() @ 0x0000000012d1b114
+12. Poco::PooledThread::run() @ 0x0000000012e12e98
+13. Poco::ThreadImpl::runnableEntry(void*) @ 0x0000000012e11290
+14. start_thread @ 0x0000000000007624
+15. ? @ 0x00000000000d162c
+
+2024.07.15 18:04:54.738012 [ 1 ] {} <Warning> Context: Linux transparent hugepages are set to "always". Check /sys/kernel/mm/transparent_hugepage/enabled
+2024.07.15 18:04:54.738417 [ 1 ] {} <Warning> Context: Delay accounting is not enabled, OSIOWaitMicroseconds will not be gathered. You can enable it using `echo 1 > /proc/sys/kernel/task_delayacct` or by using sysctl.
+2024.07.15 18:04:54.738727 [ 1 ] {} <Warning> Application: Integrity check of the executable skipped because the reference checksum could not be read.
+2024.07.15 18:04:54.917599 [ 1 ] {} <Warning> Application: Listen [::]:9009 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 24.5.3.5 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2024.07.15 18:04:55.623472 [ 1 ] {} <Warning> Application: Listen [::]:8123 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 24.5.3.5 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2024.07.15 18:04:55.624107 [ 1 ] {} <Warning> Application: Listen [::]:9000 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 24.5.3.5 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2024.07.15 18:04:55.624424 [ 1 ] {} <Warning> Application: Listen [::]:9004 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 24.5.3.5 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2024.07.15 18:04:55.624663 [ 1 ] {} <Warning> Application: Listen [::]:9005 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 24.5.3.5 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2024.07.15 18:08:33.582476 [ 48 ] {d1bb01b3-23f4-4671-b6fa-1830a2509bbd} <Error> executeQuery: Code: 62. DB::Exception: Empty query. (SYNTAX_ERROR) (version 24.5.3.5 (official build)) (from 172.20.0.6:44260) (in query: ), Stack trace (when copying this message, always include the lines below):
+
+0. DB::Exception::Exception(DB::Exception::MessageMasked&&, int, bool) @ 0x000000000bc29748
+1. DB::Exception::createDeprecated(String const&, int, bool) @ 0x000000000bc79dc0
+2. DB::parseQueryAndMovePosition(DB::IParser&, char const*&, char const*, String const&, bool, unsigned long, unsigned long, unsigned long) @ 0x0000000011164a78
+3. DB::executeQueryImpl(char const*, char const*, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum, DB::ReadBuffer*) @ 0x000000000fbc96e4
+4. DB::executeQuery(String const&, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum) @ 0x000000000fbc8c68
+5. DB::TCPHandler::runImpl() @ 0x00000000109db464
+6. DB::TCPHandler::run() @ 0x00000000109f1de8
+7. Poco::Net::TCPServerConnection::start() @ 0x0000000012d1ac38
+8. Poco::Net::TCPServerDispatcher::run() @ 0x0000000012d1b114
+9. Poco::PooledThread::run() @ 0x0000000012e12e98
+10. Poco::ThreadImpl::runnableEntry(void*) @ 0x0000000012e11290
+11. start_thread @ 0x0000000000007624
+12. ? @ 0x00000000000d162c
+
+2024.07.15 18:08:33.584134 [ 48 ] {d1bb01b3-23f4-4671-b6fa-1830a2509bbd} <Error> TCPHandler: Code: 62. DB::Exception: Empty query. (SYNTAX_ERROR), Stack trace (when copying this message, always include the lines below):
+
+0. DB::Exception::Exception(DB::Exception::MessageMasked&&, int, bool) @ 0x000000000bc29748
+1. DB::Exception::createDeprecated(String const&, int, bool) @ 0x000000000bc79dc0
+2. DB::parseQueryAndMovePosition(DB::IParser&, char const*&, char const*, String const&, bool, unsigned long, unsigned long, unsigned long) @ 0x0000000011164a78
+3. DB::executeQueryImpl(char const*, char const*, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum, DB::ReadBuffer*) @ 0x000000000fbc96e4
+4. DB::executeQuery(String const&, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum) @ 0x000000000fbc8c68
+5. DB::TCPHandler::runImpl() @ 0x00000000109db464
+6. DB::TCPHandler::run() @ 0x00000000109f1de8
+7. Poco::Net::TCPServerConnection::start() @ 0x0000000012d1ac38
+8. Poco::Net::TCPServerDispatcher::run() @ 0x0000000012d1b114
+9. Poco::PooledThread::run() @ 0x0000000012e12e98
+10. Poco::ThreadImpl::runnableEntry(void*) @ 0x0000000012e11290
+11. start_thread @ 0x0000000000007624
+12. ? @ 0x00000000000d162c
+
+2024.07.15 18:48:09.812227 [ 1 ] {} <Warning> Application: Closed all listening sockets. Waiting for 3 outstanding connections.

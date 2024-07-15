@@ -3,16 +3,3 @@ kind: Kustomization
 
 resources:
   - ../../base
-
-configMapGenerator:
-  - name: clickhouse-config
-    files:
-      - config.xml=/Users/samarjeetsingh/practice/telemetry-stream-processor/clickhouse/config.xml
-
-  - name: clickhouse-users
-    files:
-      - users.xml=/Users/samarjeetsingh/practice/telemetry-stream-processor/clickhouse/users.xml
-
-# Optionally, if you want to customize any resources, you can add patches here
-#patchesStrategicMerge:
-#  - some-patch.yaml  # If you have any patches to apply

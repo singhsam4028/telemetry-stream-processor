@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clickhouse-persistence-jobmanager
+  namespace: telemetry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clickhouse-persistence-jobmanager
+  template:
+    metadata:
+      labels:
+        app: clickhouse-persistence-jobmanager
+    spec:
+      containers:
+        - name: jobmanager
+          image: samar4028/clickhouse-persistence:latest
+          ports:
+            - containerPort: 8082
+          env:
+            - name: FLINK_PROPERTIES
+              value: |
+                jobmanager.rpc.address: clickhouse-persistence-jobmanager
+                parallelism.default: 2
+          volumeMounts:
+            - name: flink-usrlib
+              mountPath: /opt/flink/usrlib
+      volumes:
+        - name: flink-usrlib
+          emptyDir: {}

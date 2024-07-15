@@ -1,9 +1,0 @@
-columns format version: 1
-7 columns:
-`co` Float32
-`humidity` Int32
-`light` Bool
-`lpg` Float32
-`motion` Bool
-`smoke` Float32
-`temp` Float32

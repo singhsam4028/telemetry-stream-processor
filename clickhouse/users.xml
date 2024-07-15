@@ -92,9 +92,9 @@
 
             <!-- User permissions can be granted here -->
 
-            <grants>
-                <query>GRANT ALL ON *.*</query>
-            </grants>
+<!--            <grants>-->
+<!--                <query>GRANT ALL ON *.*</query>-->
+<!--            </grants>-->
 
         </default>
     </users>

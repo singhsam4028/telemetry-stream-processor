@@ -1,0 +1,2 @@
+ATTACH USER samar IDENTIFIED WITH plaintext_password BY 'samar_4028';
+ATTACH GRANT SELECT, INSERT, ALTER UPDATE, ALTER DELETE ON telemetry.* TO samar;

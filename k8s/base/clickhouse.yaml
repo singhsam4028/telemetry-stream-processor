@@ -2,6 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: clickhouse
+  namespace: telemetry
+  labels:
+    app: clickhouse
 spec:
   replicas: 1
   selector:
@@ -29,10 +32,17 @@ spec:
             - name: clickhouse-users
               mountPath: /etc/clickhouse-server/users.d/users.xml
               subPath: users.xml
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "1Gi"
+              cpu: "1"
       volumes:
         - name: clickhouse-data
-          hostPath:
-            path: /Users/samarjeetsingh/practice/telemetry-stream-processor/clickhouse/clickhouse_database
+          persistentVolumeClaim:
+            claimName: clickhouse-pvc
         - name: clickhouse-config
           configMap:
             name: clickhouse-config
@@ -45,6 +55,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: clickhouse
+  namespace: telemetry
+  labels:
+    app: clickhouse
 spec:
   ports:
     - name: http

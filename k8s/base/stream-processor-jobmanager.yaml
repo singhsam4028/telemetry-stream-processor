@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stream-processor-jobmanager
+  namespace: telemetry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stream-processor-jobmanager
+  template:
+    metadata:
+      labels:
+        app: stream-processor-jobmanager
+    spec:
+      containers:
+        - name: jobmanager
+          image: samar4028/stream-processor:latest
+          ports:
+            - containerPort: 8081
+          command: ["standalone-job", "--job-classname", "org.arc.TelemetryStreamProcessor", "--jars", "/opt/flink/usrlib/stream-processor-1.0-SNAPSHOT.jar"]
+          env:
+            - name: FLINK_PROPERTIES
+              value: |
+                jobmanager.rpc.address: stream-processor-jobmanager
+                parallelism.default: 2
+          volumeMounts:
+            - name: flink-usrlib
+              mountPath: /opt/flink/usrlib
+      volumes:
+        - name: flink-usrlib
+          emptyDir: {}

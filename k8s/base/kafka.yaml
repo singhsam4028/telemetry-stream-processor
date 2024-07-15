@@ -2,6 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kafka
+  namespace: telemetry
+  labels:
+    app: kafka
 spec:
   replicas: 1
   selector:
@@ -27,12 +30,21 @@ spec:
               value: "PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092"
             - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
               value: "PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT"
-
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "1Gi"
+              cpu: "1"
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: kafka
+  namespace: telemetry
+  labels:
+    app: kafka
 spec:
   ports:
     - port: 9092

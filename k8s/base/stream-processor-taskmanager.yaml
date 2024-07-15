@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stream-processor-taskmanager
+  namespace: telemetry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stream-processor-taskmanager
+  template:
+    metadata:
+      labels:
+        app: stream-processor-taskmanager
+    spec:
+      containers:
+        - name: taskmanager
+          image: apache/flink:1.14.0
+          command: ["taskmanager"]
+          env:
+            - name: FLINK_PROPERTIES
+              value: |
+                jobmanager.rpc.address: stream-processor-jobmanager
+                taskmanager.numberOfTaskSlots: 2
+                parallelism.default: 2

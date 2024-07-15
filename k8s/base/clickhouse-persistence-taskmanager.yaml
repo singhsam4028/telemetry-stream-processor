@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clickhouse-persistence-taskmanager
+  namespace: telemetry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clickhouse-persistence-taskmanager
+  template:
+    metadata:
+      labels:
+        app: clickhouse-persistence-taskmanager
+    spec:
+      containers:
+        - name: taskmanager
+          image: apache/flink:1.16.0
+          command: ["taskmanager"]
+          env:
+            - name: FLINK_PROPERTIES
+              value: |
+                jobmanager.rpc.address: clickhouse-persistence-jobmanager
+                taskmanager.numberOfTaskSlots: 2
+                parallelism.default: 2
