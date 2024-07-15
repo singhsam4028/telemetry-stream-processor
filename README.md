@@ -13,3 +13,12 @@ docker exec -it telemetry-stream-processor-kafka-1 /usr/bin/kafka-console-consum
 notification-service:
 
 docker logs -f telemetry-stream-processor-notification-service-1 | grep "Anomaly detected:"
+
+
+list-all-available listening port
+lsof -PiTCP -sTCP:LISTEN
+
+
+check specific port availability
+lsof -i :9009
+if no output it means its available..

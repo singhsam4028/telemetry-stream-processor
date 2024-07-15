@@ -27,31 +27,20 @@ services:
       - flink_network
 
 
-  kafka_manager:
-    image: hlebalbau/kafka-manager:stable
-    restart: always
-    ports:
-      - "9007:9007"
-    depends_on:
-      - zookeeper
-      - kafka
-    environment:
-      ZK_HOSTS: "zookeeper:2181"
-      APPLICATION_SECRET: "random-secret"
-    command: -Dpidfile.path=/dev/null
-    networks:
-      - flink_network
+
 
   kafdrop:
     image: obsidiandynamics/kafdrop
     restart: always
     ports:
-      - "9008:9008"
+      - "9009:9009"
     depends_on:
-      - kafka
       - zookeeper
+      - kafka
     environment:
-      KAFKA_BROKER_CONNECT: kafka:9092
+      KAFKA_BROKERCONNECT: "kafka:9092"
+      JVM_OPTS: "-Xms32M -Xmx64M"
+      SERVER_PORT: 9009
     networks:
       - flink_network
 
