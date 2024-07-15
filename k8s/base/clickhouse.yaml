@@ -12,21 +12,6 @@ spec:
       labels:
         app: clickhouse
     spec:
-      initContainers:
-        - name: init-clickhouse
-          image: clickhouse/clickhouse-client:latest
-          command:
-            - sh
-            - -c
-            - >
-              until clickhouse-client --host=clickhouse --port=9000 --query "SELECT 1" > /dev/null 2>&1; do
-                echo "Waiting for ClickHouse to be ready...";
-                sleep 5;
-              done;
-              clickhouse-client --host=clickhouse --port=9000 --query "CREATE USER IF NOT EXISTS samar IDENTIFIED WITH plaintext_password BY 'samar_4028';";
-              clickhouse-client --host=clickhouse --port=9000 --query "GRANT ALL ON *.* TO samar;";
-              clickhouse-client --host=clickhouse --port=9000 --query "CREATE DATABASE IF NOT EXISTS telemetry;";
-              clickhouse-client --host=clickhouse --port=9000 --query "CREATE TABLE IF NOT EXISTS telemetry.anomalies (co Float32, humidity Int32, light Bool, lpg Float32, motion Bool, smoke Float32, temp Float32) ENGINE = MergeTree() ORDER BY (co, humidity);"
       containers:
         - name: clickhouse
           image: clickhouse/clickhouse-server:latest

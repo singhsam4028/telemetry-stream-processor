@@ -63,7 +63,7 @@ services:
   taskmanager-stream-processor:
     image: apache/flink:1.14.0
     depends_on:
-      - jobmanager
+      - jobmanager-stream-processor
     command: taskmanager
 #    scale: 1
     volumes:
@@ -115,7 +115,7 @@ services:
   taskmanager-clickhouse-persistence:
     image: apache/flink:1.16.0
     depends_on:
-      - jobmanager-clickhouse
+      - jobmanager-clickhouse-persistence
     command: taskmanager
     volumes:
       - ./clickhouse-persistence/target:/opt/flink/usrlib
